@@ -4,6 +4,7 @@ import asyncio
 from starlette.applications import Starlette
 from starlette.routing import Route, Mount
 from starlette.templating import Jinja2Templates
+import uvicorn
 
 templates = Jinja2Templates(directory="templates")
 
@@ -67,3 +68,6 @@ async def stream(scope, receive, send):
 
 routes = [Route("/", endpoint=homepage), Mount("/stream/", stream)]
 app = Starlette(debug=True, routes=routes)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=8000)
